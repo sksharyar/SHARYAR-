@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Store</title>
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family:Arial, sans-serif;
+}
+header{
+  background:#111;
+  padding:15px 30px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+header img{height:50px}
+.header-text h1{margin:0}
+.header-text p{margin:0;font-size:13px;opacity:.7}
+
+.hero{
+  text-align:center;
+  padding:60px 20px;
+  background:linear-gradient(120deg,#222,#444);
+  font-size:22px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+  padding:30px;
+}
+
+.card{
+  background:#111;
+  border-radius:12px;
+  padding:15px;
+}
+
+.card img{
+  width:100%;
+  border-radius:8px;
+}
+
+.thumb{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+.thumb img{
+  width:48%;
+  opacity:.7;
+  cursor:pointer;
+}
+.thumb img:hover{opacity:1}
+
+.card h3{margin:10px 0 5px}
+.price{color:#0f0;font-weight:bold}
+.desc{font-size:14px;opacity:.8}
+
+.card button{
+  width:100%;
+  padding:10px;
+  background:#25d366;
+  border:none;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.card button:hover{background:#1ebe57}
+
+footer{
+  background:#111;
+  text-align:center;
+  padding:20px;
+}
+footer input{
+  padding:8px;
+  width:220px;
+  border:none;
+  border-radius:4px;
+}
+footer button{
+  padding:8px 15px;
+  background:#25d366;
+  border:none;
+  border-radius:4px;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="https://via.placeholder.com/150x50?text=Logo">
+  <div class="header-text">
+    <h1>My Store</h1>
+    <p>Welcome to My Store</p>
+  </div>
+</header>
+
+<section class="hero">
+  Best Quality Products • Order on WhatsApp
+</section>
+
+<section class="products" id="products"></section>
+
+<footer>
+  <h3>Contact Us</h3>
+  <form onsubmit="event.preventDefault();alert('Message sent!')">
+    <input type="email" placeholder="Your Email" required>
+    <input type="text" placeholder="Your Message" required>
+    <button>Send</button>
+  </form>
+</footer>
+
+<script>
+const phone="923366255572";
+
+const products=[
+{n:"Product 1",p:"Rs 2,500",d:"Premium quality stylish product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/777"},
+{n:"Product 2",p:"Rs 3,200",d:"Durable and long lasting item.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/666"},
+{n:"Product 3",p:"Rs 1,800",d:"Best choice for daily use.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/555"},
+{n:"Product 4",p:"Rs 2,100",d:"Modern design with strong build.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/444"},
+{n:"Product 5",p:"Rs 4,500",d:"Top quality premium product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/333"},
+{n:"Product 6",p:"Rs 1,900",d:"Affordable and reliable item.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/222"},
+{n:"Product 7",p:"Rs 2,750",d:"Elegant and stylish product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/111"},
+{n:"Product 8",p:"Rs 3,100",d:"High performance guaranteed.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/999"},
+{n:"Product 9",p:"Rs 2,600",d:"Customer favorite item.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/888"},
+{n:"Product 10",p:"Rs 3,800",d:"Best seller product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/aaa"},
+{n:"Product 11",p:"Rs 2,950",d:"Strong and durable material.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/bbb"},
+{n:"Product 12",p:"Rs 1,700",d:"Budget friendly product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/ccc"},
+{n:"Product 13",p:"Rs 4,200",d:"Luxury feel premium product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/ddd"},
+{n:"Product 14",p:"Rs 3,600",d:"Smart and stylish design.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/eee"},
+{n:"Product 15",p:"Rs 2,400",d:"Reliable everyday use item.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/fff"},
+{n:"Product 16",p:"Rs 3,000",d:"High demand product.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/aaa"},
+{n:"Product 17",p:"Rs 2,300",d:"Excellent quality guaranteed.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/bbb"},
+{n:"Product 18",p:"Rs 1,950",d:"Perfect choice for everyone.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/ccc"},
+{n:"Product 19",p:"Rs 2,800",d:"Stylish and durable.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/ddd"},
+{n:"Product 20",p:"Rs 3,400",d:"Premium quality guaranteed.",i1:"https://via.placeholder.com/400",i2:"https://via.placeholder.com/400/eee"}
+];
+
+const box=document.getElementById("products");
+
+products.forEach((x,i)=>{
+box.innerHTML+=`
+<div class="card">
+<img id="m${i}" src="${x.i1}">
+<div class="thumb">
+<img src="${x.i1}" onclick="m${i}.src=this.src">
+<img src="${x.i2}" onclick="m${i}.src=this.src">
+</div>
+<h3>${x.n}</h3>
+<p class="price">${x.p}</p>
+<p class="desc">${x.d}</p>
+<button onclick="window.open('https://wa.me/${phone}?text=I want ${x.n}')">
+Order on WhatsApp
+</button>
+</div>`;
+});
+</script>
+
+</body>
+</html>
